@@ -1,11 +1,13 @@
 import requests
 import json
+import sys
 from rich.console import Console
 from rich.table import Table
 from rich.text import Text
 
-# Initialize rich console with a custom style for better font appearance
-console = Console(style="bold white on black")
+# Initialize rich console, forcing compatibility with limited color terminals
+# This ensures the output works on most VPS environments.
+console = Console(force_terminal=True, color_system="truecolor", force_jupyter=False)
 
 # Read addresses from file
 try:
@@ -13,11 +15,11 @@ try:
         addresses = [line.strip().lower() for line in f if line.strip()]
 except FileNotFoundError:
     console.print("[bold red]Error:[/bold red] The file 'address.txt' was not found.")
-    exit()
+    sys.exit(1)
 
 if not addresses:
     console.print("[bold yellow]Warning:[/bold yellow] 'address.txt' is empty. Please add validator addresses.")
-    exit()
+    sys.exit(0)
 
 # Fetch validator data
 try:
@@ -28,7 +30,7 @@ try:
     validators = validators_data.get("validators", [])
 except requests.exceptions.RequestException as e:
     console.print(f"[bold red]Error:[/bold red] Failed to fetch validator data from {validators_url}. Details: {e}")
-    exit()
+    sys.exit(1)
 
 # Create a dictionary mapping address -> validator info
 validator_map = {v["address"].lower(): v for v in validators}
@@ -42,7 +44,7 @@ try:
     queue_list = queue_data.get("validatorsInQueue", [])
 except requests.exceptions.RequestException as e:
     console.print(f"[bold red]Error:[/bold red] Failed to fetch queue data from {queue_url}. Details: {e}")
-    exit()
+    sys.exit(1)
 
 # Create a dictionary mapping address -> queue position
 queue_positions = {}
