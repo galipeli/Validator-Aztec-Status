@@ -6,6 +6,8 @@ This script allows you to easily check the status of your Aztec validator addres
 
 Follow the steps below to set up and run the script:
 
+---
+
 ### 1. Clone the Repository
 
 ```bash
@@ -13,17 +15,37 @@ git clone https://github.com/galipeli/Validator-Aztec-Status.git
 cd Validator-Aztec-Status
 ```
 
-### 2. Install Dependencies
+---
 
-Make sure you have Python installed, then install the required libraries:
+### 2. Set Up Virtual Environment (Recommended)
+
+To avoid system-level Python issues (like `externally-managed-environment`), create and activate a virtual environment:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate  # For Linux/macOS
+```
+
+If you're on Windows, use:
+```bash
+venv\Scripts\activate
+```
+
+---
+
+### 3. Install Dependencies
+
+Once the virtual environment is active, install the required Python libraries:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Add Your Validator Addresses
+---
 
-Create a file named `address.txt` in the project root directory, and add your validator addresses—**one address per line**.
+### 4. Add Your Validator Addresses
+
+Create a file named `address.txt` in the project root directory, and add your validator addresses — **one per line**.
 
 **Example:**
 
@@ -33,24 +55,27 @@ Create a file named `address.txt` in the project root directory, and add your va
 0x55aa...
 ```
 
-### 4. Run the Script
+---
 
-To check your validator statuses, run:
+### 5. Run the Script
 
 ```bash
 python cek.py
 ```
 
-The script will output a neatly formatted table showing the current status of each validator address.
+The script will display a table showing the current status of each validator address.
 
 ---
 
 ## 📷 Example Output
 
-<img width="984" height="894" alt="image" src="https://github.com/user-attachments/assets/b14badcd-b55f-4f42-a6e0-e4e8135f90c5" />
+> Replace the image below with a screenshot of your actual terminal output.
+
+![Example Output](images/output.png)
 
 ---
 
 ## 📄 License
 
 This project is open-source and available under the [MIT License](LICENSE).
+
